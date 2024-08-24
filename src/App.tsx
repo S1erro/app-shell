@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import AuthorizationPage from "pages/AuthorizationPage/AuthorizationPage";
+import {Layout} from "antd";
+import MainLayout from "./components/MainLayout/MainLayout";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [currentUser, setCurrentUser] = useState<string | null>(localStorage.getItem("currentUser"));
+
+    return (
+        <Layout className="App">
+            {currentUser === null
+                ? <AuthorizationPage setCurrentUser={setCurrentUser} />
+                : <MainLayout />}
+        </Layout>
+    );
 }
 
 export default App;
