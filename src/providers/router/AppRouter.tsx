@@ -1,12 +1,15 @@
 import React from 'react';
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import UsersPage from "pages/UsersPage/UsersPage";
 import RolesPage from "pages/RolesPage/RolesPage";
 import ProfilePage from "pages/ProfilePage/ProfilePage";
+import ErrorPage from "pages/ErrorPage/ErrorPage";
 
 const AppRouter = () => {
     return (
         <Routes>
+            <Route path="*" element={<ErrorPage />} />
+            <Route path="/" element={<Navigate to="/users" replace />} />
             <Route path="/users" element={<UsersPage />} />
             <Route path="/roles" element={<RolesPage />} />
             <Route path="/profile" element={<ProfilePage />} />

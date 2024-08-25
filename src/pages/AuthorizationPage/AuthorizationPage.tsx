@@ -12,10 +12,10 @@ const AuthorizationPage: FC<Props> = ({setCurrentUser}) => {
     const [username, setUsername] = useState<string>('');
     const navigate = useNavigate();
 
-    const handleFinish = () => {
+    const handleSubmit = () => {
         localStorage.setItem("currentUser", username);
         setCurrentUser(username);
-        navigate("/users")
+        navigate("/");
     }
 
     return (
@@ -27,7 +27,7 @@ const AuthorizationPage: FC<Props> = ({setCurrentUser}) => {
                 name="authorization_form"
                 labelCol={{span: 8}}
                 wrapperCol={{span: 8}}
-                onFinish={handleFinish}
+                onFinish={handleSubmit}
             >
                 <Form.Item
                     label="Имя пользователя:"
