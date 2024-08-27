@@ -8,7 +8,7 @@ const ErrorPage = () => {
             <h2>Ошибка 404, такой страницы не существует</h2>
             <Button style={{maxWidth: '450px'}}>
                 <Link
-                    to="/users"
+                    to="/"
                     style={{width:'100%'}}
                 >
                     На главную
