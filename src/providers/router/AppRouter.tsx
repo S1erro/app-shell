@@ -9,7 +9,7 @@ import ContactsPage from "pages/ContactsPage/ContactsPage";
 const AppRouter = () => {
     return (
         <Routes>
-            <Route path="*" element={<ErrorPage />} />
+            {/*<Route path="*" element={<ErrorPage />} />*/}
             <Route path="/" element={<Navigate to="/users" replace />} />
             <Route path="/users" element={<UsersPage />} />
             <Route path="/roles" element={<RolesPage />} />

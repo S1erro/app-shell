@@ -1,7 +1,42 @@
 import React, {useContext, useState} from 'react';
-import {Button, Checkbox, Col, Input, Layout, List, message, Modal, Select} from "antd";
+import {Button, Input, Layout, message, Modal, Select} from "antd";
 import {ContactsContext} from "providers/ContactsProvider/ContactsProvider"
 import {Contact} from "types/interfaces/interfaces";
+import ContactsList from "components/ContactsList/ContactsList";
+
+const filterOptions = [
+    {
+        value: "name",
+        label: "По имени"
+    },
+    {
+        value: "email",
+        label: "По почте"
+    },
+    {
+        value: "",
+        label: "Без фильтра"
+    }
+]
+
+const categoryOptions = [
+    {
+        value: "Друг",
+        label: "Друг"
+    },
+    {
+        value: "Враг",
+        label: "Враг"
+    },
+    {
+        value: "Знакомый",
+        label: "Знакомый"
+    },
+    {
+        value: "",
+        label: "Не выбрано"
+    }
+]
 
 const ContactsPage = () => {
     const context = useContext(ContactsContext);
@@ -13,8 +48,9 @@ const ContactsPage = () => {
     const [editedContact, setEditedContact] = useState<Contact | null>(null);
     const [sortFilter, setSortFilter] = useState<string>(''); // Фильтр для сортировки
     const [findFilter, setFindFilter] = useState<string>(''); // Фильтр для поиска по буквам
+    const [categoryFilter, setCategoryFilter] = useState<string>('');
 
-    const showModal = (contact?: Contact) => {
+    const handleShowModal = (contact?: Contact) => {
         if (contact) {
             setCurrentContact(contact);
             setEditedContact(contact);
@@ -46,14 +82,21 @@ const ContactsPage = () => {
         setEditedContact(prevState => prevState ? {...prevState, [key]: value} : null);
     };
 
-    const handleFilterChange = (filterValue: string) => {
+    const handleSortFilterChange = (filterValue: string) => {
         setSortFilter(filterValue);
     }
 
-    const filterContacts = (): Contact[] => {
-        let filteredContacts = contacts.filter((contact) =>
-            contact.email.includes(findFilter) || contact.name.includes(findFilter)
-        );
+    const handleCategoryFilterChange = (filterValue: string) => {
+        setCategoryFilter(filterValue);
+    }
+
+    const handleFilterContacts = (): Contact[] => {
+        let filteredContacts = contacts
+            .filter((contact) => contact.email.includes(findFilter) || contact.name.includes(findFilter))
+
+        if (categoryFilter) {
+            filteredContacts = filteredContacts.filter((contact) => contact.category === categoryFilter);
+        }
 
         if (sortFilter === "name") {
             filteredContacts = filteredContacts.sort((a, b) => a.name.localeCompare(b.name));
@@ -67,49 +110,23 @@ const ContactsPage = () => {
     return (
         <Layout style={{padding: '24px'}}>
             <Select
-                onChange={handleFilterChange}
+                onChange={handleSortFilterChange}
                 placeholder="Сортировка"
-                options={[
-                    {
-                        value: "name",
-                        label: "По имени"
-                    },
-                    {
-                        value: "email",
-                        label: "По почте"
-                    },
-                    {
-                        value: "",
-                        label: "Без фильтра"
-                    }
-                ]}
+                options={filterOptions}
+            />
+            <Select
+                onChange={handleCategoryFilterChange}
+                placeholder="Категория"
+                options={categoryOptions}
             />
             <Input
                 placeholder="Поиск"
                 onChange={(e) => setFindFilter(e.target.value)}
                 value={findFilter}
             />
-            <Button onClick={() => showModal()}>Добавить</Button>
-            {/*<Input></Input>*/}
-            <List
-                dataSource={filterContacts()}
-                renderItem={(contact: Contact) => (
-                    <List.Item>
-                        <Checkbox/>
-                        <Col offset={1} span={3}>{contact.name}</Col>
-                        <Col span={3}>{contact.email}</Col>
-                        <Col span={3}>{contact.phone ? contact.phone : "-"}</Col>
-                        <Col span={1}>{contact.category ? contact.category : "-"}</Col>
-                        <Col span={1}>{contact.gender ? contact.gender : "-"}</Col>
-                        <Button onClick={() => showModal(contact)}>
-                            Изменить
-                        </Button>
-                        <Button onClick={() => removeContact(contact.email)}>
-                            Удалить
-                        </Button>
-                    </List.Item>
-                )}
-            />
+            <Button onClick={() => handleShowModal()}>Добавить</Button>
+            <ContactsList filterContacts={handleFilterContacts} showModal={handleShowModal} />
+
             {editedContact && (
                 <Modal
                     title="Редактирование контакта"
@@ -135,11 +152,12 @@ const ContactsPage = () => {
                         onChange={(e) => handleInputChange('phone', e.target.value)}
                         style={{marginBottom: '10px'}}
                     />
-                    <Input
+                    <Select
                         placeholder="Категория"
+                        options={categoryOptions}
                         value={editedContact.category || ""}
-                        onChange={(e) => handleInputChange('category', e.target.value)}
-                        style={{marginBottom: '10px'}}
+                        onChange={(value) => handleInputChange('category', value)}
+                        style={{marginBottom: '10px', width: '100%'}}
                     />
                     <Input
                         placeholder="Пол"

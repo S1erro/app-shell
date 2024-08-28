@@ -18,30 +18,30 @@ const ContactsProvider: FC<ContactsProviderProps> = ({children}) => {
 
     const [contacts, setContacts] = useState<Contact[]>([
         {
-            name: "Dohn Johnson",
-            email: "das521dh@husa.ru",
+            name: "Димас Донской",
+            email: "Dimon2012@mail.ru",
             phone: "89214212314",
-            category: "Enemy",
-            gender: "Male"
+            category: "Враг",
+            gender: "Муж."
         },
         {
-            name: "Aohn Johnson",
-            email: "dasd56h@husa.ru",
-            phone: "89214212314",
-            category: "Friend",
-            gender: "Female"
+            name: "Гребень Пушистый",
+            email: "AkulaMonster@shark.com",
+            phone: "89214122314",
+            category: "Друг",
+            gender: "Жен."
         },
         {
-            name: "Bohn Johnson",
-            email: "dasdh4@husa.ru",
-            phone: "89214212314",
-            category: "NPC",
+            name: "Оливье Прошлогодний",
+            email: "oliveHero@mail.ru",
+            phone: "89214291814",
+            category: "Знакомый",
         },
         {
-            name: "John Johnson",
-            email: "dasdh@husa2.ru",
-            category: "Friend",
-            gender: "Male"
+            name: "Пластырь Позорный",
+            email: "pozner@gmail.com",
+            category: "Друг",
+            gender: "Муж."
         },
     ]);
 
