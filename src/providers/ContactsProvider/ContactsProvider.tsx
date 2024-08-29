@@ -25,8 +25,15 @@ const ContactsProvider: FC<ContactsProviderProps> = ({children}) => {
             gender: "Муж."
         },
         {
+            name: "Димас Донской",
+            email: "NeDimon2012@mail.ru",
+            phone: "89214212314",
+            category: "Враг",
+            gender: "Муж."
+        },
+        {
             name: "Гребень Пушистый",
-            email: "AkulaMonster@shark.com",
+            email: "XkulaMonster@shark.com",
             phone: "89214122314",
             category: "Друг",
             gender: "Жен."
