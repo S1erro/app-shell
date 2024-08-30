@@ -1,5 +1,5 @@
 import React, {useState, createContext, FC, ReactNode} from 'react';
-import {Contact} from "types/interfaces/interfaces";
+import {Contact, Gender, Category} from "types/interfaces/interfaces";
 
 interface ContactsProviderProps {
     children: ReactNode;
@@ -21,34 +21,36 @@ const ContactsProvider: FC<ContactsProviderProps> = ({children}) => {
             name: "Димас Донской",
             email: "Dimon2012@mail.ru",
             phone: "89214212314",
-            category: "Враг",
-            gender: "Муж."
+            category: Category.Enemy,
+            gender: Gender.male,
         },
         {
             name: "Димас Донской",
             email: "NeDimon2012@mail.ru",
             phone: "89214212314",
-            category: "Враг",
-            gender: "Муж."
+            category: Category.Enemy,
+            gender: Gender.male,
         },
         {
             name: "Гребень Пушистый",
-            email: "XkulaMonster@shark.com",
+            email: "AkulaMonster@shark.com",
             phone: "89214122314",
-            category: "Друг",
-            gender: "Жен."
+            category: Category.Friend,
+            gender: Gender.female,
         },
         {
             name: "Оливье Прошлогодний",
             email: "oliveHero@mail.ru",
             phone: "89214291814",
-            category: "Знакомый",
+            category: Category.Acquaintance,
+            gender: Gender.unselected,
         },
         {
             name: "Пластырь Позорный",
             email: "pozner@gmail.com",
-            category: "Друг",
-            gender: "Муж."
+            phone: "",
+            category: Category.Friend,
+            gender: Gender.male,
         },
     ]);
 

@@ -1,13 +1,10 @@
 import React, {ChangeEvent, FC, useContext, useState} from 'react';
-import {Button, Input, Table} from "antd";
+import {Button, Input, Layout, Table} from "antd";
 import {Contact} from "types/interfaces/interfaces";
 import {ContactsContext} from "providers/ContactsProvider/ContactsProvider";
+import {Link} from "react-router-dom";
 
-interface Props {
-    onShowModal: (contact: Contact) => void;
-}
-
-const ContactsTable: FC<Props> = ({onShowModal}) => {
+const ContactsTable = () => {
     const context = useContext(ContactsContext);
 
     const {contacts, removeContact} = context!
@@ -19,12 +16,12 @@ const ContactsTable: FC<Props> = ({onShowModal}) => {
     const [textToFindName, setTextToFindName] = useState<string>('');
     const [textToFindEmail, setTextToFindEmail] = useState<string>('');
 
-    const handleSearchName = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleChangeNameSearch = (e: ChangeEvent<HTMLInputElement>) => {
         const currValue = e.target.value;
         setTextToFindName(currValue);
     };
 
-    const handleSearchEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleChangeEmailSeacrh = (e: ChangeEvent<HTMLInputElement>) => {
         const currValue = e.target.value;
         setTextToFindEmail(currValue);
     }
@@ -47,7 +44,7 @@ const ContactsTable: FC<Props> = ({onShowModal}) => {
                 <Input.Search
                     placeholder="Введите текст"
                     value={textToFindName}
-                    onChange={handleSearchName}
+                    onChange={handleChangeNameSearch}
                 />
             )
         },
@@ -61,7 +58,7 @@ const ContactsTable: FC<Props> = ({onShowModal}) => {
                 <Input.Search
                     placeholder="Введите текст"
                     value={textToFindEmail}
-                    onChange={handleSearchEmail}
+                    onChange={handleChangeEmailSeacrh}
                 />
             )
         },
@@ -113,17 +110,22 @@ const ContactsTable: FC<Props> = ({onShowModal}) => {
             key: "gender",
         },
         {
-            title: "Изменить",
+            title: "Действие",
             dataIndex: "",
-            key: "edit",
-            render: (record: Contact) => <Button onClick={() => onShowModal(record)}> Изменить </Button>
+            key: "action",
+            render: (record: Contact) =>
+                <Layout>
+                    <Button>
+                        <Link
+                            to={`/create-edit/${record.email}`}
+                            style={{width: "100%", height: "100%"}}
+                        >
+                            Изменить
+                        </Link>
+                    </Button>
+                    <Button onClick={() => removeContact(record.email)}> Удалить </Button>
+                </Layout>
         },
-        {
-            title: "Удалить",
-            dataIndex: "",
-            key: "delete",
-            render: (record: Contact) => <Button onClick={() => removeContact(record.email)}> Удалить </Button>
-        }
     ]
 
     return (
@@ -131,9 +133,11 @@ const ContactsTable: FC<Props> = ({onShowModal}) => {
             dataSource={contacts
                 .filter(contact => contact.name.includes(textToFindName))
                 .filter(contact => contact.email.includes(textToFindEmail))
+                .map(contact => ({...contact, key: contact.email}))
             }
             columns={tableColumns}
             onChange={handleTableChange}
+
         />
     );
 };

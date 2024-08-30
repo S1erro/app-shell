@@ -63,7 +63,7 @@ const AuthorizationPage: FC<Props> = ({setCurrentUser}) => {
                         htmlType="submit"
                         className={cls["button"]}
                     >
-                        Submit
+                        Ок
                     </Button>
                 </Form.Item>
             </Form>
