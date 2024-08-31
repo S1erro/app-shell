@@ -1,13 +1,14 @@
-import React, {ChangeEvent, FC, useContext, useState} from 'react';
-import {Button, Input, Layout, Space, Table} from "antd";
+import React, {ChangeEvent, useState} from 'react';
+import {Button, Input, Space, Table} from "antd";
 import {Contact} from "types";
-import {ContactsContext} from "providers/ContactsProvider/ContactsProvider";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {RootState} from "store/store";
+import {useContactActions} from "store/contactActions";
 
 const ContactsTable = () => {
-    const context = useContext(ContactsContext);
-
-    const {contacts, removeContact} = context!
+    const contacts = useSelector((state: RootState) => state.contacts.contacts);
+    const {handleRemoveContact} = useContactActions();
 
     const navigate = useNavigate();
 
@@ -125,7 +126,7 @@ const ContactsTable = () => {
                     >
                             Изменить
                     </Button>
-                    <Button onClick={() => removeContact(record.id)}> Удалить </Button>
+                    <Button onClick={() => handleRemoveContact(record.id)}> Удалить </Button>
                 </Space>
         },
     ]

@@ -1,9 +1,11 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Form, Input, Layout, Select} from "antd";
 import {Category, Contact, Gender} from "types";
 import {useParams, useNavigate} from "react-router-dom";
-import {ContactsContext} from "providers/ContactsProvider/ContactsProvider";
 import cls from "./EditContactPage.module.css"
+import {RootState} from "store/store";
+import {useSelector} from "react-redux";
+import {useContactActions} from "store/contactActions";
 
 
 const categoryOptions = Object.values(Category).map(value => ({
@@ -16,19 +18,16 @@ const genderOptions = Object.values(Gender).map(value => ({
     label: value || "Не выбрано"
 }))
 
-interface RouteParams {
-    email: string
-}
-
 const EditContactPage = () => {
-    const context = useContext(ContactsContext);
-    const {contacts, addContact, editContact} = context!
+    const contacts = useSelector((state: RootState) => state.contacts.contacts);
+    const {handleAddContact, handleEditContact} = useContactActions();
+
     const navigate = useNavigate();
 
-    const {contactEmail} = useParams<{ contactEmail: string }>();
+    const {id} = useParams<{ id: string }>();
 
-    const contact = contactEmail
-        ? contacts.find(contact => contact.email === contactEmail)
+    const contact = id
+        ? contacts.find(contact => contact.id === Number(id))
         : undefined
 
     const [currentContact, setCurrentContact] = useState<Contact | undefined>(contact);
@@ -43,9 +42,9 @@ const EditContactPage = () => {
 
     const handleSubmit = () => {
         if (currentContact && editedContact) {
-            editContact(currentContact.id, editedContact);
+            handleEditContact(currentContact.id, editedContact);
         } else if (editedContact) {
-            addContact(editedContact);
+            handleAddContact(editedContact);
         }
 
         navigate("/contacts");

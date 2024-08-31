@@ -4,18 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
-import ContactsProvider from "./providers/ContactsProvider/ContactsProvider";
+import {Provider} from 'react-redux';
+import store from 'store/store';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <React.StrictMode>
-        <ContactsProvider>
+        <Provider store={store}>
             <BrowserRouter>
                 <App/>
             </BrowserRouter>
-        </ContactsProvider>
+        </Provider>
     </React.StrictMode>
 );
 reportWebVitals();
