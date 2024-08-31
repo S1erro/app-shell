@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Димас Донской",
+    "email": "Dimon2012@mail.ru",
+    "phone": "89214212314",
+    "category": "Враг",
+    "gender": "Мужчина"
+  },
+  {
+    "name": "Димас Донской",
+    "email": "NeDimon2012@mail.ru",
+    "phone": "89214212314",
+    "category": "Враг",
+    "gender": "Мужчина"
+  },
+  {
+    "name": "Гребень Пушистый",
+    "email": "AkulaMonster@shark.com",
+    "phone": "89214122314",
+    "category": "Друг",
+    "gender": "Женщина"
+  },
+  {
+    "name": "Оливье Прошлогодний",
+    "email": "oliveHero@mail.ru",
+    "phone": "89214291814",
+    "category": "Знакомый",
+    "gender": ""
+  },
+  {
+    "name": "Пластырь Позорный",
+    "email": "pozner@gmail.com",
+    "phone": "",
+    "category": "Друг",
+    "gender": "Мужчина"
+  }
+]

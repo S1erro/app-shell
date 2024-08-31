@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Form, Input, Layout, Select} from "antd";
 import {Category, Contact, Gender} from "types/interfaces/interfaces";
 import {useParams, useNavigate} from "react-router-dom";
@@ -63,7 +63,12 @@ const EditContactPage = () => {
                 <Form.Item
                     label="Имя"
                     name="name"
-                    required={true}
+                    rules={[
+                        {
+                            required: true,
+                            message: "Введите имя"
+                        }
+                    ]}
                     initialValue={editedContact?.name}
                 >
                     <Input
@@ -75,12 +80,18 @@ const EditContactPage = () => {
                 <Form.Item
                     label="Почта"
                     name="email"
-                    required={true}
+                    rules={[
+                        {
+                            required: true,
+                            message: "Введите почту"
+                        }
+                    ]}
                     initialValue={editedContact?.email}
                 >
                     <Input
                         onChange={(e) => handleInputChange('email', e.target.value)}
                         style={{marginBottom: '10px'}}
+                        type="email"
                     />
                 </Form.Item>
 
@@ -92,6 +103,7 @@ const EditContactPage = () => {
                     <Input
                         onChange={(e) => handleInputChange('phone', e.target.value)}
                         style={{marginBottom: '10px'}}
+                        type="number"
                     />
                 </Form.Item>
 
