@@ -1,6 +1,6 @@
 import React, {ChangeEvent, FC, useContext, useState} from 'react';
 import {Button, Input, Layout, Table} from "antd";
-import {Contact} from "types/interfaces/interfaces";
+import {Contact} from "types";
 import {ContactsContext} from "providers/ContactsProvider/ContactsProvider";
 import {Link} from "react-router-dom";
 

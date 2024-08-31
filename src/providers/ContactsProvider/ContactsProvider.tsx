@@ -1,5 +1,5 @@
 import React, {useState, createContext, FC, ReactNode, useEffect} from 'react';
-import {Contact} from "types/interfaces/interfaces";
+import {Contact} from "types";
 import contactsData from "./contacts.json"
 
 interface ContactsProviderProps {

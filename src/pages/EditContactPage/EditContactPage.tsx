@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {Button, Form, Input, Layout, Select} from "antd";
-import {Category, Contact, Gender} from "types/interfaces/interfaces";
+import {Category, Contact, Gender} from "types";
 import {useParams, useNavigate} from "react-router-dom";
 import {ContactsContext} from "providers/ContactsProvider/ContactsProvider";
 import cls from "./EditContactPage.module.css"
