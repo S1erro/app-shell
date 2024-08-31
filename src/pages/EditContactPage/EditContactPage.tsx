@@ -33,7 +33,7 @@ const EditContactPage = () => {
 
     const [currentContact, setCurrentContact] = useState<Contact | undefined>(contact);
     const [editedContact, setEditedContact] = useState<Contact | undefined>(
-        contact !== undefined ? contact : {name: "", email: "", phone: "", category: "", gender: ""}
+        contact !== undefined ? contact : {name: "", email: "", phone: "", category: "", gender: "", id: Math.random()}
     );
 
 
@@ -43,7 +43,7 @@ const EditContactPage = () => {
 
     const handleSubmit = () => {
         if (currentContact && editedContact) {
-            editContact(currentContact.email, editedContact);
+            editContact(currentContact.id, editedContact);
         } else if (editedContact) {
             addContact(editedContact);
         }

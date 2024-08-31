@@ -16,7 +16,7 @@ const AppRouter = () => {
             <Route path="/roles" element={<RolesPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/contacts" element={<ContactsPage />} />
-            <Route path="/create-edit/:contactEmail" element={<EditContactPage />} />
+            <Route path="/create-edit/:id" element={<EditContactPage />} />
         </Routes>
     );
 };

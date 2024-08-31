@@ -2,17 +2,20 @@ import React, {ChangeEvent, FC, useContext, useState} from 'react';
 import {Button, Input, Layout, Table} from "antd";
 import {Contact} from "types";
 import {ContactsContext} from "providers/ContactsProvider/ContactsProvider";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const ContactsTable = () => {
     const context = useContext(ContactsContext);
 
     const {contacts, removeContact} = context!
 
+    const navigate = useNavigate();
+
     const [sortedInfo, setSortedInfo] = useState<{ columnKey: string; order: 'ascend' | 'descend' | null }>({
         columnKey: '',
         order: null,
     });
+
     const [textToFindName, setTextToFindName] = useState<string>('');
     const [textToFindEmail, setTextToFindEmail] = useState<string>('');
 
@@ -115,15 +118,14 @@ const ContactsTable = () => {
             key: "action",
             render: (record: Contact) =>
                 <Layout>
-                    <Button>
-                        <Link
-                            to={`/create-edit/${record.email}`}
-                            style={{width: "100%", height: "100%"}}
-                        >
+                    <Button
+                        onClick={() => {
+                            navigate(`/create-edit/${record.id}`)
+                        }}
+                    >
                             Изменить
-                        </Link>
                     </Button>
-                    <Button onClick={() => removeContact(record.email)}> Удалить </Button>
+                    <Button onClick={() => removeContact(record.id)}> Удалить </Button>
                 </Layout>
         },
     ]

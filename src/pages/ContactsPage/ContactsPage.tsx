@@ -1,18 +1,20 @@
 import React from 'react';
 import {Button, Layout} from "antd";
 import ContactsTable from "components/ContactsTable/ContactsTable";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const ContactsPage = () => {
+
+    const navigate = useNavigate();
+
     return (
         <Layout style={{padding: '24px'}}>
-            <Button>
-                <Link
-                    to="/create-edit/:contactEmail"
-                    style={{width: "100%", height: "100%"}}
-                >
+            <Button
+                onClick={() => {
+                    navigate("/create-edit/:id");
+                }}
+            >
                     Добавить
-                </Link>
             </Button>
 
             <ContactsTable />

@@ -9,8 +9,8 @@ interface ContactsProviderProps {
 interface ContactsContextType  {
     contacts: Contact[];
     addContact: (contact: Contact) => void;
-    removeContact: (email: string) => void;
-    editContact: (email: string, updatedContact: Contact) => void;
+    removeContact: (id: number) => void;
+    editContact: (id: number, updatedContact: Contact) => void;
 }
 
 export const ContactsContext = createContext<ContactsContextType | null>(null);
@@ -40,15 +40,15 @@ const ContactsProvider: FC<ContactsProviderProps> = ({children}) => {
         setContacts([...contacts, contact])
     }
 
-    const removeContact = (email: string) => {
-        const updatedContacts = contacts.filter((contact) => contact.email !== email);
+    const removeContact = (id: number) => {
+        const updatedContacts = contacts.filter((contact) => contact.id !== id);
 
         setContacts(updatedContacts)
     }
 
-    const editContact = (email: string, updatedContact: Contact) => {
+    const editContact = (id: number, updatedContact: Contact) => {
         const updatedContacts = contacts.map((contact) =>
-            contact.email === email ? updatedContact : contact)
+            contact.id === id ? updatedContact : contact)
 
         setContacts(updatedContacts)
     }

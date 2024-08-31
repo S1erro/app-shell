@@ -6,6 +6,7 @@ export interface Contact {
     phone?: string;
     category?: string;
     gender?: string;
+    id: number;
 }
 
 export enum Category {
