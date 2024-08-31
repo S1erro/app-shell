@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Layout} from "antd";
 import ContactsTable from "components/ContactsTable/ContactsTable";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const ContactsPage = () => {
 

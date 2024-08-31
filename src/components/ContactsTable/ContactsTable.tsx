@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC, useContext, useState} from 'react';
-import {Button, Input, Layout, Table} from "antd";
+import {Button, Input, Layout, Space, Table} from "antd";
 import {Contact} from "types";
 import {ContactsContext} from "providers/ContactsProvider/ContactsProvider";
 import {Link, useNavigate} from "react-router-dom";
@@ -117,7 +117,7 @@ const ContactsTable = () => {
             dataIndex: "",
             key: "action",
             render: (record: Contact) =>
-                <Layout>
+                <Space>
                     <Button
                         onClick={() => {
                             navigate(`/create-edit/${record.id}`)
@@ -126,7 +126,7 @@ const ContactsTable = () => {
                             Изменить
                     </Button>
                     <Button onClick={() => removeContact(record.id)}> Удалить </Button>
-                </Layout>
+                </Space>
         },
     ]
 
