@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addContact, removeContact, editContact } from './contactsSlice';
+import { addContact, removeContact, editContact} from './contactsSlice';
 import {Contact} from "types";
 
 export const useContactActions = () => {
@@ -20,6 +20,6 @@ export const useContactActions = () => {
     return {
         handleAddContact,
         handleRemoveContact,
-        handleEditContact
+        handleEditContact,
     };
 };

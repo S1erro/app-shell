@@ -1,54 +1,14 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Contact } from "types";
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {Contact} from "types";
+import {initialState} from "./initialState";
+import {fetchContacts} from "./api";
 
-interface ContactsState {
-    contacts: Contact[];
-}
-
-const initialState: ContactsState = {
-    contacts: [
-        {
-            "name": "Димас Донской",
-            "email": "Dimon2012@mail.ru",
-            "phone": "89214212314",
-            "category": "Враг",
-            "gender": "Мужчина",
-            "id": 0.23
-        },
-        {
-            "name": "Димас Донской",
-            "email": "NeDimon2012@mail.ru",
-            "phone": "89214212314",
-            "category": "Враг",
-            "gender": "Мужчина",
-            "id": 0.11109
-        },
-        {
-            "name": "Гребень Пушистый",
-            "email": "AkulaMonster@shark.com",
-            "phone": "89214122314",
-            "category": "Друг",
-            "gender": "Женщина",
-            "id": 0.12902
-        },
-        {
-            "name": "Оливье Прошлогодний",
-            "email": "oliveHero@mail.ru",
-            "phone": "89214291814",
-            "category": "Знакомый",
-            "gender": "",
-            "id": 0.96102
-        },
-        {
-            "name": "Пластырь Позорный",
-            "email": "pozner@gmail.com",
-            "phone": "",
-            "category": "Друг",
-            "gender": "Мужчина",
-            "id": 0.651
-        }
-    ],
-};
+export const fetchedContacts = createAsyncThunk(
+    'users/fetchById',
+    async () => {
+        return await fetchContacts()
+    },
+)
 
 const contactsSlice = createSlice({
     name: 'contacts',
@@ -67,8 +27,21 @@ const contactsSlice = createSlice({
             }
         },
     },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchedContacts.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchedContacts.fulfilled, (state, action) => {
+                state.contacts = action.payload;
+                state.isLoading = false;
+            })
+            .addCase(fetchedContacts.rejected, (state, action) => {
+                state.isLoading = false;
+            });
+    }
 });
 
-export const { addContact, removeContact, editContact } = contactsSlice.actions;
+export const {addContact, removeContact, editContact} = contactsSlice.actions;
 
 export default contactsSlice.reducer;

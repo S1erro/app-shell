@@ -1,14 +1,25 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useMemo, useRef, useState} from 'react';
 import {Button, Input, Space, Table} from "antd";
 import {Contact} from "types";
 import {useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {RootState} from "store/store";
+import {useDispatch, useSelector} from "react-redux";
 import {useContactActions} from "store/contactActions";
+import {selectContacts, selectIsLoading} from "store/contactsSelectors";
+import {fetchedContacts} from "store/contactsSlice";
+import {AppDispatch} from "store/store";
 
 const ContactsTable = () => {
-    const contacts = useSelector((state: RootState) => state.contacts.contacts);
+    const dispatch: AppDispatch = useDispatch();
+
+    const contacts = useSelector(selectContacts);
+    const isLoading = useSelector(selectIsLoading);
     const {handleRemoveContact} = useContactActions();
+
+    useEffect(() => {
+        if (!contacts.length && !isLoading) {
+            dispatch(fetchedContacts());
+        }
+    }, []);
 
     const navigate = useNavigate();
 
@@ -35,6 +46,10 @@ const ContactsTable = () => {
             columnKey: sorter.columnKey,
             order: sorter.order,
         })
+    }
+
+    const handleNavigate = (record: Contact) => {
+        navigate(`/create-edit/${record.id}`)
     }
 
     const tableColumns = [
@@ -120,11 +135,9 @@ const ContactsTable = () => {
             render: (record: Contact) =>
                 <Space>
                     <Button
-                        onClick={() => {
-                            navigate(`/create-edit/${record.id}`)
-                        }}
+                        onClick={() => handleNavigate(record)}
                     >
-                            Изменить
+                        Изменить
                     </Button>
                     <Button onClick={() => handleRemoveContact(record.id)}> Удалить </Button>
                 </Space>

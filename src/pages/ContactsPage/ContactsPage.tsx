@@ -7,12 +7,14 @@ const ContactsPage = () => {
 
     const navigate = useNavigate();
 
+    const handleNavigate = () => {
+        navigate("/create-edit/:id");
+    }
+
     return (
         <Layout style={{padding: '24px'}}>
             <Button
-                onClick={() => {
-                    navigate("/create-edit/:id");
-                }}
+                onClick={handleNavigate}
             >
                     Добавить
             </Button>

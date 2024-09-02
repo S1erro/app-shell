@@ -3,9 +3,9 @@ import {Button, Form, Input, Layout, Select} from "antd";
 import {Category, Contact, Gender} from "types";
 import {useParams, useNavigate} from "react-router-dom";
 import cls from "./EditContactPage.module.css"
-import {RootState} from "store/store";
 import {useSelector} from "react-redux";
 import {useContactActions} from "store/contactActions";
+import {selectContacts} from "store/contactsSelectors";
 
 
 const categoryOptions = Object.values(Category).map(value => ({
@@ -19,7 +19,7 @@ const genderOptions = Object.values(Gender).map(value => ({
 }))
 
 const EditContactPage = () => {
-    const contacts = useSelector((state: RootState) => state.contacts.contacts);
+    const contacts = useSelector(selectContacts);
     const {handleAddContact, handleEditContact} = useContactActions();
 
     const navigate = useNavigate();
@@ -27,10 +27,10 @@ const EditContactPage = () => {
     const {id} = useParams<{ id: string }>();
 
     const contact = id
-        ? contacts.find(contact => contact.id === Number(id))
+        ? contacts.find((contact: Contact)=> contact.id === Number(id))
         : undefined
 
-    const [currentContact, setCurrentContact] = useState<Contact | undefined>(contact);
+    const [currentContact] = useState<Contact | undefined>(contact);
     const [editedContact, setEditedContact] = useState<Contact | undefined>(
         contact !== undefined ? contact : {name: "", email: "", phone: "", category: "", gender: "", id: Math.random()}
     );
