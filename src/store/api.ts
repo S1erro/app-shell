@@ -8,3 +8,4 @@ export const fetchContacts = async (): Promise<Contact[]> => {
         }, 1000);
     });
 };
+

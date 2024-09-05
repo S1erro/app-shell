@@ -1,11 +1,6 @@
-import {Contact} from "types";
-
-interface ContactsState {
-    contacts: Contact[];
-    isLoading: boolean;
-}
+import {ContactsState, ContactsStatus} from "types";
 
 export const initialState: ContactsState = {
     contacts: [],
-    isLoading: false,
+    status: ContactsStatus.pending,
 };

@@ -1,10 +1,10 @@
-import React, {ChangeEvent, useEffect, useMemo, useRef, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Button, Input, Space, Table} from "antd";
 import {Contact} from "types";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useContactActions} from "store/contactActions";
-import {selectContacts, selectIsLoading} from "store/contactsSelectors";
+import {selectContacts} from "store/contactsSelectors";
 import {fetchedContacts} from "store/contactsSlice";
 import {AppDispatch} from "store/store";
 
@@ -12,14 +12,13 @@ const ContactsTable = () => {
     const dispatch: AppDispatch = useDispatch();
 
     const contacts = useSelector(selectContacts);
-    const isLoading = useSelector(selectIsLoading);
     const {handleRemoveContact} = useContactActions();
 
     useEffect(() => {
-        if (!contacts.length && !isLoading) {
+        if (contacts.status.isLoading) {
             dispatch(fetchedContacts());
         }
-    }, []);
+    }, [contacts.status, dispatch]);
 
     const navigate = useNavigate();
 
@@ -48,8 +47,8 @@ const ContactsTable = () => {
         })
     }
 
-    const handleNavigate = (record: Contact) => {
-        navigate(`/create-edit/${record.id}`)
+    const handleNavigate = (id: number) => {
+        navigate(`/create-edit/${id}`)
     }
 
     const tableColumns = [
@@ -135,7 +134,7 @@ const ContactsTable = () => {
             render: (record: Contact) =>
                 <Space>
                     <Button
-                        onClick={() => handleNavigate(record)}
+                        onClick={() => handleNavigate(record.id)}
                     >
                         Изменить
                     </Button>
@@ -146,7 +145,7 @@ const ContactsTable = () => {
 
     return (
         <Table
-            dataSource={contacts
+            dataSource={contacts.contacts
                 .filter(contact => contact.name.includes(textToFindName))
                 .filter(contact => contact.email.includes(textToFindEmail))
                 .map(contact => ({...contact, key: contact.email}))

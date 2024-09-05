@@ -27,7 +27,7 @@ const EditContactPage = () => {
     const {id} = useParams<{ id: string }>();
 
     const contact = id
-        ? contacts.find((contact: Contact)=> contact.id === Number(id))
+        ? contacts.contacts?.find((contact: Contact)=> contact.id === Number(id))
         : undefined
 
     const [currentContact] = useState<Contact | undefined>(contact);

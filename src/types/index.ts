@@ -1,4 +1,15 @@
 
+export enum ContactsStatus {
+    'rejected',
+    'idle',
+    'pending',
+    'fulfilled',
+}
+
+export interface ContactsState {
+    contacts: Contact[];
+    status: ContactsStatus;
+}
 
 export interface Contact {
     name: string;

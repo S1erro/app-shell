@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Contact} from "types";
+import {Contact, ContactsStatus} from "types";
 import {initialState} from "./initialState";
 import {fetchContacts} from "./api";
 
@@ -30,14 +30,14 @@ const contactsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchedContacts.pending, (state) => {
-                state.isLoading = true;
+                state.status = ContactsStatus.pending;
             })
             .addCase(fetchedContacts.fulfilled, (state, action) => {
                 state.contacts = action.payload;
-                state.isLoading = false;
+                state.status = ContactsStatus.fulfilled;
             })
             .addCase(fetchedContacts.rejected, (state, action) => {
-                state.isLoading = false;
+                state.status = ContactsStatus.rejected;
             });
     }
 });
