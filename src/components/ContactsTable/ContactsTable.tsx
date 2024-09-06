@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {Table} from "antd";
+import {Table, message} from "antd";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useContactActions} from "store/contactActions";
@@ -14,9 +14,18 @@ const ContactsTable = () => {
     const {contacts, status} = useSelector(selectContacts);
     const {handleRemoveContact} = useContactActions();
 
+    const [messageApi, contextHolder] = message.useMessage();
+
     useEffect(() => {
         if (status.isLoading) {
             dispatch(fetchedContacts());
+
+        }
+        if (status.hasError) {
+            messageApi.open({
+                type: 'error',
+                content: 'Ошибка загрузки контактов',
+            });
         }
     }, [status, dispatch]);
 
@@ -62,16 +71,19 @@ const ContactsTable = () => {
     });
 
     return (
-        <Table
-            dataSource={contacts
-                .filter(contact => contact.name.includes(textToFindName))
-                .filter(contact => contact.email.includes(textToFindEmail))
-                .map(contact => ({...contact, key: contact.email}))
-            }
-            columns={tableColumns}
-            onChange={handleTableChange}
+        <>
+            {contextHolder}
+            <Table
+                dataSource={contacts
+                    .filter(contact => contact.name.includes(textToFindName))
+                    .filter(contact => contact.email.includes(textToFindEmail))
+                    .map(contact => ({...contact, key: contact.email}))
+                }
+                columns={tableColumns}
+                onChange={handleTableChange}
 
-        />
+            />
+        </>
     );
 };
 
