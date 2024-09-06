@@ -10,7 +10,7 @@ import EditContactPage from "pages/EditContactPage/EditContactPage";
 const AppRouter = () => {
     return (
         <Routes>
-            {/*<Route path="*" element={<ErrorPage />} />*/}
+            {/*<Route path="*" element={<ErrorPage />} />*/} // TODO: раскомментировать для использования не на gh-pages
             <Route path="/" element={<Navigate to="/users" replace />} />
             <Route path="/users" element={<UsersPage />} />
             <Route path="/roles" element={<RolesPage />} />

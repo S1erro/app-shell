@@ -4,7 +4,6 @@ import ContactsTable from "components/ContactsTable/ContactsTable";
 import {useNavigate} from "react-router-dom";
 
 const ContactsPage = () => {
-
     const navigate = useNavigate();
 
     const handleNavigate = () => {
@@ -16,11 +15,9 @@ const ContactsPage = () => {
             <Button
                 onClick={handleNavigate}
             >
-                    Добавить
+                Добавить
             </Button>
-
-            <ContactsTable />
-
+            <ContactsTable/>
         </Layout>
     );
 };

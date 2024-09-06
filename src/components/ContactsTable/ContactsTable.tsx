@@ -1,24 +1,24 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {Button, Input, Space, Table} from "antd";
-import {Contact} from "types";
+import {Table} from "antd";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useContactActions} from "store/contactActions";
 import {selectContacts} from "store/contactsSelectors";
 import {fetchedContacts} from "store/contactsSlice";
 import {AppDispatch} from "store/store";
+import {getTableColumns} from "./const";
 
 const ContactsTable = () => {
     const dispatch: AppDispatch = useDispatch();
 
-    const contacts = useSelector(selectContacts);
+    const {contacts, status} = useSelector(selectContacts);
     const {handleRemoveContact} = useContactActions();
 
     useEffect(() => {
-        if (contacts.status.isLoading) {
+        if (status.isLoading) {
             dispatch(fetchedContacts());
         }
-    }, [contacts.status, dispatch]);
+    }, [status, dispatch]);
 
     const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ const ContactsTable = () => {
         setTextToFindName(currValue);
     };
 
-    const handleChangeEmailSeacrh = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleChangeEmailSearch = (e: ChangeEvent<HTMLInputElement>) => {
         const currValue = e.target.value;
         setTextToFindEmail(currValue);
     }
@@ -51,101 +51,19 @@ const ContactsTable = () => {
         navigate(`/create-edit/${id}`)
     }
 
-    const tableColumns = [
-        {
-            title: "Имя",
-            dataIndex: "name",
-            key: "name",
-            sorter: (a: Contact, b: Contact) => a.name.localeCompare(b.name),
-            sortOrder: sortedInfo.columnKey === "name" ? sortedInfo.order : null,
-            filterDropdown: () => (
-                <Input.Search
-                    placeholder="Введите текст"
-                    value={textToFindName}
-                    onChange={handleChangeNameSearch}
-                />
-            )
-        },
-        {
-            title: "Почта",
-            dataIndex: "email",
-            key: "email",
-            sorter: (a: Contact, b: Contact) => a.email.localeCompare(b.email),
-            sortOrder: sortedInfo.columnKey === "email" ? sortedInfo.order : null,
-            filterDropdown: () => (
-                <Input.Search
-                    placeholder="Введите текст"
-                    value={textToFindEmail}
-                    onChange={handleChangeEmailSeacrh}
-                />
-            )
-        },
-        {
-            title: "Телефон",
-            dataIndex: "phone",
-            key: "phone",
-        },
-        {
-            title: "Категория",
-            dataIndex: "category",
-            key: "category",
-            filters: [
-                {
-                    text: "Враги",
-                    value: "Враг"
-                },
-                {
-                    text: "Друзья",
-                    value: "Друг"
-                },
-                {
-                    text: "Знакомые",
-                    value: "Знакомый"
-                },
-                {
-                    text: "Не указано",
-                    value: "noCategory"
-                }
-            ],
-            onFilter: (value: any, record: Contact) => {
-                if (!record.category && value === "noCategory") {
-                    return true
-                }
-
-                if (record.category && value === "noCategory") {
-                    return false
-                }
-
-                if (record.category && value !== "noCategory") {
-                    return record.category.includes(value)
-                }
-                return false
-            },
-        },
-        {
-            title: "Пол",
-            dataIndex: "gender",
-            key: "gender",
-        },
-        {
-            title: "Действие",
-            dataIndex: "",
-            key: "action",
-            render: (record: Contact) =>
-                <Space>
-                    <Button
-                        onClick={() => handleNavigate(record.id)}
-                    >
-                        Изменить
-                    </Button>
-                    <Button onClick={() => handleRemoveContact(record.id)}> Удалить </Button>
-                </Space>
-        },
-    ]
+    const tableColumns = getTableColumns({
+        sortedInfo,
+        textToFindName,
+        textToFindEmail,
+        handleChangeNameSearch,
+        handleChangeEmailSearch,
+        handleNavigate,
+        handleRemoveContact,
+    });
 
     return (
         <Table
-            dataSource={contacts.contacts
+            dataSource={contacts
                 .filter(contact => contact.name.includes(textToFindName))
                 .filter(contact => contact.email.includes(textToFindEmail))
                 .map(contact => ({...contact, key: contact.email}))
