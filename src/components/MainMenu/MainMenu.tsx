@@ -20,6 +20,10 @@ const MainMenu = () => {
             key: 'profile',
             label: <Link to="/profile">Мой профиль</Link>,
         },
+        {
+            key: 'virtual-machines',
+            label: <Link to="/virtual-machines">Виртуальные машины</Link>,
+        },
     ];
 
     return (

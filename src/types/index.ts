@@ -1,4 +1,16 @@
 
+export enum StorageCapacityRange {
+    min = 2,
+    max = 192
+}
+
+export enum ServerOptions {
+    'ru-central1-d',
+    'ru-central2-d',
+    'by-north1-d',
+    'kz-west1-d'
+}
+
 export enum ContactsStatus {
     'rejected',
     'idle',

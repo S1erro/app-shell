@@ -6,6 +6,8 @@ import ProfilePage from "pages/ProfilePage/ProfilePage";
 import ErrorPage from "pages/ErrorPage/ErrorPage";
 import ContactsPage from "pages/ContactsPage/ContactsPage";
 import EditContactPage from "pages/EditContactPage/EditContactPage";
+import VirtualMachinesListPage from "pages/VirtualMachinesListPage/VirtualMachinesListPage";
+import CreateVirtualMachinePage from "pages/CreateVirtualMachinePage/CreateVirtualMachinePage";
 
 const AppRouter = () => {
     return (
@@ -17,6 +19,8 @@ const AppRouter = () => {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/contacts" element={<ContactsPage />} />
             <Route path="/create-edit/:id" element={<EditContactPage />} />
+            <Route path="/virtual-machines" element={<VirtualMachinesListPage />} />
+            <Route path="/create-machine" element={<CreateVirtualMachinePage />} />
         </Routes>
     );
 };
