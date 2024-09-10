@@ -1,11 +1,26 @@
 import React, {FC} from 'react';
 import {Filter} from "types";
-import {Button, Layout} from "antd";
+import {Button, Space} from "antd";
 
 interface OptionsProps {
     setFilter: React.Dispatch<React.SetStateAction<Filter>>
     todoCountByStatus: { all: number, completed: number, inwork: number }
 }
+
+const filterOptions = [
+    {
+        value: Filter.all,
+        label: "Все"
+    },
+    {
+        value: Filter.completed,
+        label: "Закрытые"
+    },
+    {
+        value: Filter.inwork,
+        label: "В работе"
+    },
+]
 
 const OptionsSelector: FC<OptionsProps> = ({setFilter, todoCountByStatus}) => {
 
@@ -16,7 +31,7 @@ const OptionsSelector: FC<OptionsProps> = ({setFilter, todoCountByStatus}) => {
     const allTasksCount = todoCountByStatus.all ? todoCountByStatus.all : 0;
 
     return (
-        <Layout>
+        <Space style={{margin: "0 auto"}}>
             <Button
                 onClick={() => setFilter(Filter.all)}
             >
@@ -34,8 +49,7 @@ const OptionsSelector: FC<OptionsProps> = ({setFilter, todoCountByStatus}) => {
             >
                 Сделано ({completedTasksCount})
             </Button>
-
-        </Layout>
+        </Space>
     );
 };
 

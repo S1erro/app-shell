@@ -1,24 +1,31 @@
 import React, {FC, useState} from 'react';
 import cls from "./EditTask.module.scss";
-import {Todo, TasksProps} from "types";
+import {Todo} from "types";
 import Modal from "react-modal";
-import {editTodo} from "pages/api";
-import {Button, Input, Layout, Typography} from "antd";
+import {editTodo} from "api/api";
+import {Button, Form, Input, Layout, Space, Typography} from "antd";
 
-interface Props  {
+interface Props {
     id: number,
-    tasks: Todo[]
+    tasks: Todo[],
+    onUpdate: () => void
 }
 
 const {Title} = Typography;
 
-const EditTask: FC<Props> = ({id, tasks}) => {
+const EditTask: FC<Props> = ({id, tasks, onUpdate}) => {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const [currentTask, setCurrentTask] = useState<Todo | undefined>(
         tasks.find((task) => task.id === id)
     );
+
+    const handleSaveChanges = async () => {
+        await editTodo({title: currentTask?.title, isdone: false}, id);
+        setModalIsOpen(false);
+        onUpdate()
+    }
 
     return (
         <>
@@ -35,30 +42,48 @@ const EditTask: FC<Props> = ({id, tasks}) => {
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
                 contentLabel="Edit Task Modal"
+                className={cls.modal}
             >
-                <Title level={2}>Edit Task</Title>
-                <Input
-                    value={currentTask?.title || ''}
-                    className={cls.input}
-                    onChange={(event) =>
-                        setCurrentTask({...currentTask!, title: event.target.value})
-                    }
-                />
-                <Layout>
-                    <Button
-                        onClick={() => {
-                            editTodo({title: currentTask?.title, isdone: false}, id);
-                            setModalIsOpen(false);
-                        }}
+                <Title level={2}>Исправление</Title>
+                <Form
+                    name="modal_form"
+                >
+                    <Form.Item
+                        name="modal"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Название не может быть пустым"
+                            }
+                        ]}
                     >
-                        Сохранить
-                    </Button>
-                    <Button
-                        onClick={() => setModalIsOpen(false)}
-                    >
-                        Отмена
-                    </Button>
-                </Layout>
+                        <Input
+                            defaultValue={currentTask?.title || ''}
+                            className={cls.input}
+                            onChange={(event) =>
+                                setCurrentTask({...currentTask!, title: event.target.value})
+                            }
+                        />
+                    </Form.Item>
+                    <Space>
+                        <Form.Item>
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                onClick={() => handleSaveChanges()}
+                            >
+                                Сохранить
+                            </Button>
+                        </Form.Item>
+                        <Form.Item>
+                            <Button
+                                onClick={() => setModalIsOpen(false)}
+                            >
+                                Отмена
+                            </Button>
+                        </Form.Item>
+                    </Space>
+                </Form>
             </Modal>
         </>
     );

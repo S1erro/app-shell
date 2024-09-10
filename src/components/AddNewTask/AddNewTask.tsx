@@ -1,29 +1,57 @@
-import React, {useState} from 'react';
-import cls from './AddNewTask.module.scss';
-import AddTaskButton from "components/AddTaskButton/AddTaskButton";
-import {Input, Layout} from "antd";
+import React, {FC, useState} from 'react';
+import {Button, Form, Input, Layout} from "antd";
+import {addTodo} from "api/api";
 
-export const AddNewTask = () => {
+interface Props {
+    onAdd: () => void
+}
 
-    const [input, setInput] = useState<string>('')
+export const AddNewTask: FC<Props> = ({onAdd}) => {
 
-    const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInput(event.target.value);
+    const [inputValue, setInputValue] = useState<string>('')
+
+    const handleAddTodo = async () => {
+        await addTodo({title: inputValue, isdone: false});
+        setInputValue('');
+        onAdd();
     }
 
     return (
-        <Layout className={cls.header}>
-                <Input
-                    type="text"
-                    placeholder="OneTask To Be Done..."
-                    className={cls.input}
-                    onChange={inputChange}
-                    value={input}
-                />
-                <AddTaskButton
-                    input={input}
-                    resetInput={() => setInput('')}
-                />
+        <Layout style={{ padding: "1rem" }}>
+            <Form
+                layout="horizontal"
+                name="add_new_task_form"
+                labelCol={{span: 2}}
+                wrapperCol={{span: 12}}
+            >
+                <Form.Item
+                    label={"Задача:"}
+                    name="newtask"
+                    rules={[
+                        {
+                            required: true,
+                            message: "Введите задачу"
+                        }
+                    ]}
+                >
+                    <Input
+                        placeholder="Введите задачу..."
+                        onChange={(e) => setInputValue(e.target.value)}
+                        value={inputValue}
+                    />
+                </Form.Item>
+                <Form.Item
+                    wrapperCol={{offset: 2}}
+                >
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        onClick={handleAddTodo}
+                    >
+                        Добавить
+                    </Button>
+                </Form.Item>
+            </Form>
         </Layout>
     );
 };

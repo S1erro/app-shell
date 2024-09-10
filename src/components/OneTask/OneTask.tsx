@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
-import cls from "./OneTask.module.scss";
+import cls from './OneTask.module.scss';
 import {Todo, TasksProps} from "types";
 import EditTask from "components/EditTask/EditTask";
-import {deleteTodo, editTodo} from "pages/api";
-import {Button, Checkbox, Input, Layout, Typography} from "antd";
+import {deleteTodo, editTodo} from "api/api";
+import {Button, Checkbox, Layout, Typography} from "antd";
 
 interface Props {
     task: Todo;
@@ -27,7 +27,7 @@ const OneTask: FC<Props> = ({task, tasks, onUpdate}) => {
     }
 
     return (
-        <Layout className={cls.taskContainer}>
+        <Layout className={cls["task-container"]}>
             <Checkbox
                 type="checkbox"
                 checked={task.isdone}
@@ -36,10 +36,11 @@ const OneTask: FC<Props> = ({task, tasks, onUpdate}) => {
 
             <Title level={5}> {task.title}</Title>
 
-            <Layout className={cls["btn-container"]}>
+            <Layout>
                 <EditTask
                     id={task.id}
                     tasks={tasks}
+                    onUpdate={onUpdate}
                 />
                 <Button
                     onClick={() => handleDeleteTodo(task.id)}
