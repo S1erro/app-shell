@@ -20,6 +20,10 @@ const MainMenu = () => {
             key: 'profile',
             label: <Link to="/profile">Мой профиль</Link>,
         },
+        {
+            key: 'todo-list',
+            label: <Link to="/todo-list">TODO</Link>,
+        },
     ];
 
     return (
