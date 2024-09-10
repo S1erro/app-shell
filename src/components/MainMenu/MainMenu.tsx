@@ -21,8 +21,8 @@ const MainMenu = () => {
             label: <Link to="/profile">Мой профиль</Link>,
         },
         {
-            key: 'todo-list',
-            label: <Link to="/todo-list">TODO</Link>,
+            key: 'todo',
+            label: <Link to="/todo">Задачи</Link>,
         },
     ];
 

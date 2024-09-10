@@ -18,7 +18,7 @@ const AppRouter = () => {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/contacts" element={<ContactsPage />} />
             <Route path="/create-edit/:id" element={<EditContactPage />} />
-            <Route path="/todo-list" element={<AllTasksPage />} />
+            <Route path="/todo" element={<AllTasksPage />} />
         </Routes>
     );
 };

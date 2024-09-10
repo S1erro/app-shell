@@ -3,7 +3,7 @@ import cls from "./EditTask.module.scss";
 import {Todo} from "types";
 import Modal from "react-modal";
 import {editTodo} from "api/api";
-import {Button, Form, Input, Layout, Space, Typography} from "antd";
+import {Button, Form, Input, Space, Typography} from "antd";
 
 interface Props {
     id: number,
@@ -42,6 +42,7 @@ const EditTask: FC<Props> = ({id, tasks, onUpdate}) => {
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
                 contentLabel="Edit Task Modal"
+                ariaHideApp={false}
                 className={cls.modal}
             >
                 <Title level={2}>Исправление</Title>
@@ -50,6 +51,7 @@ const EditTask: FC<Props> = ({id, tasks, onUpdate}) => {
                 >
                     <Form.Item
                         name="modal"
+                        initialValue={currentTask?.title || ''}
                         rules={[
                             {
                                 required: true,
@@ -58,8 +60,6 @@ const EditTask: FC<Props> = ({id, tasks, onUpdate}) => {
                         ]}
                     >
                         <Input
-                            defaultValue={currentTask?.title || ''}
-                            className={cls.input}
                             onChange={(event) =>
                                 setCurrentTask({...currentTask!, title: event.target.value})
                             }

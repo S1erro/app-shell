@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Filter} from "types";
-import {Button, Space} from "antd";
+import {Button, Layout, Space} from "antd";
 
 interface OptionsProps {
     setFilter: React.Dispatch<React.SetStateAction<Filter>>
@@ -31,25 +31,27 @@ const OptionsSelector: FC<OptionsProps> = ({setFilter, todoCountByStatus}) => {
     const allTasksCount = todoCountByStatus.all ? todoCountByStatus.all : 0;
 
     return (
-        <Space style={{margin: "0 auto"}}>
-            <Button
-                onClick={() => setFilter(Filter.all)}
-            >
-                Все ({allTasksCount})
-            </Button>
+        <Layout>
+            <Space style={{margin: "0 auto"}}>
+                <Button
+                    onClick={() => setFilter(Filter.all)}
+                >
+                    Все ({allTasksCount})
+                </Button>
 
-            <Button
-                onClick={() => setFilter(Filter.inwork)}
-            >
-                В работе ({inWorkTasksCount})
-            </Button>
+                <Button
+                    onClick={() => setFilter(Filter.inwork)}
+                >
+                    В работе ({inWorkTasksCount})
+                </Button>
 
-            <Button
-                onClick={() => setFilter(Filter.completed)}
-            >
-                Сделано ({completedTasksCount})
-            </Button>
-        </Space>
+                <Button
+                    onClick={() => setFilter(Filter.completed)}
+                >
+                    Сделано ({completedTasksCount})
+                </Button>
+            </Space>
+        </Layout>
     );
 };
 

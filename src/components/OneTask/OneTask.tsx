@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import cls from './OneTask.module.scss';
-import {Todo, TasksProps} from "types";
+import {Todo} from "types";
 import EditTask from "components/EditTask/EditTask";
 import {deleteTodo, editTodo} from "api/api";
-import {Button, Checkbox, Layout, Typography} from "antd";
+import {Button, Checkbox, Flex, Layout, Space, Typography} from "antd";
 
 interface Props {
     task: Todo;
@@ -28,26 +28,39 @@ const OneTask: FC<Props> = ({task, tasks, onUpdate}) => {
 
     return (
         <Layout className={cls["task-container"]}>
-            <Checkbox
-                type="checkbox"
-                checked={task.isdone}
-                onChange={() => handleCheckboxChange(task.id, tasks)}
-            />
+            <Flex justify={"space-between"}>
+                <Space>
+                    <Checkbox
+                        type="checkbox"
+                        checked={task.isdone}
+                        onChange={() => handleCheckboxChange(task.id, tasks)}
+                    />
 
-            <Title level={5}> {task.title}</Title>
+                    <Title
+                        level={4}
+                        style={{
+                            margin: 0,
+                            padding: 0,
+                            textDecoration: task.isdone ? 'line-through' : 'none'
+                        }}
+                    >
+                        {task.title}
+                    </Title>
+                </Space>
 
-            <Layout>
-                <EditTask
-                    id={task.id}
-                    tasks={tasks}
-                    onUpdate={onUpdate}
-                />
-                <Button
-                    onClick={() => handleDeleteTodo(task.id)}
-                >
-                    Удалить
-                </Button>
-            </Layout>
+                <Space>
+                    <EditTask
+                        id={task.id}
+                        tasks={tasks}
+                        onUpdate={onUpdate}
+                    />
+                    <Button
+                        onClick={() => handleDeleteTodo(task.id)}
+                    >
+                        Удалить
+                    </Button>
+                </Space>
+            </Flex>
         </Layout>
     );
 };
