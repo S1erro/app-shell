@@ -13,8 +13,16 @@ const MainMenu = () => {
             label: <Link to="/roles">Роли</Link>,
         },
         {
+            key: 'contacts',
+            label: <Link to="/contacts">Контакты</Link>,
+        },
+        {
             key: 'profile',
             label: <Link to="/profile">Мой профиль</Link>,
+        },
+        {
+            key: 'todo',
+            label: <Link to="/todo">Задачи</Link>,
         },
     ];
 
