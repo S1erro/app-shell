@@ -24,9 +24,13 @@ export const ViewTasks = () => {
     })
 
     const loadTodos = async () => {
-        const result = await fetchTodos(filter);
-        setTasks(result.metaresponse.data);
-        setTodoCountByStatus(result.metaresponse.info ? result.metaresponse.info : todoCountByStatus)
+        try {
+            const result = await fetchTodos(filter);
+            setTasks(result.metaresponse.data);
+            setTodoCountByStatus(result.metaresponse.info ? result.metaresponse.info : todoCountByStatus)
+        } catch (error) {
+            console.log("Ошибка при получении данных:", error)
+        }
     };
 
     useEffect(() => {

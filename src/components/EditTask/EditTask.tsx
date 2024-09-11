@@ -1,17 +1,13 @@
 import React, {FC, useState} from 'react';
-import cls from "./EditTask.module.scss";
 import {Todo} from "types";
-import Modal from "react-modal";
 import {editTodo} from "api/api";
-import {Button, Form, Input, Space, Typography} from "antd";
+import {Button, Form, Input, Space, Modal} from "antd";
 
 interface Props {
     id: number,
     tasks: Todo[],
     onUpdate: () => void
 }
-
-const {Title} = Typography;
 
 const EditTask: FC<Props> = ({id, tasks, onUpdate}) => {
 
@@ -22,9 +18,13 @@ const EditTask: FC<Props> = ({id, tasks, onUpdate}) => {
     );
 
     const handleSaveChanges = async () => {
-        await editTodo({title: currentTask?.title, isdone: false}, id);
-        setModalIsOpen(false);
-        onUpdate()
+        try {
+            await editTodo({title: currentTask?.title, isdone: false}, id);
+            setModalIsOpen(false);
+            onUpdate()
+        } catch (error) {
+            console.log("Ошибка при сохранении изменений:", error);
+        }
     }
 
     return (
@@ -39,19 +39,17 @@ const EditTask: FC<Props> = ({id, tasks, onUpdate}) => {
             </Button>
 
             <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={() => setModalIsOpen(false)}
-                contentLabel="Edit Task Modal"
-                ariaHideApp={false}
-                className={cls.modal}
+                open={modalIsOpen}
+                onCancel={() => setModalIsOpen(false)}
+                title="Исправление"
+                footer={null}
             >
-                <Title level={2}>Исправление</Title>
                 <Form
                     name="modal_form"
+                    initialValues={{ modal: currentTask?.title || '' }}
                 >
                     <Form.Item
                         name="modal"
-                        initialValue={currentTask?.title || ''}
                         rules={[
                             {
                                 required: true,

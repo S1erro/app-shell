@@ -11,9 +11,13 @@ export const AddNewTask: FC<Props> = ({onAdd}) => {
     const [inputValue, setInputValue] = useState<string>('')
 
     const handleAddTodo = async () => {
-        await addTodo({title: inputValue, isdone: false});
-        setInputValue('');
-        onAdd();
+        try {
+            await addTodo({title: inputValue, isdone: false});
+            setInputValue('');
+            onAdd();
+        } catch (error) {
+            console.log("Ошибка при добавлении задачи:", error);
+        }
     }
 
     return (

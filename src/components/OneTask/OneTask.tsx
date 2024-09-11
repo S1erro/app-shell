@@ -16,14 +16,22 @@ const {Title} = Typography;
 const OneTask: FC<Props> = ({task, tasks, onUpdate}) => {
 
     const handleCheckboxChange = async (id: number, tasks: Todo[]) => {
-        const currentTask = tasks.find((task) => task.id === id);
-        await editTodo({title: currentTask?.title, isdone: !currentTask?.isdone}, id)
-        onUpdate()
+        try {
+            const currentTask = tasks.find((task) => task.id === id);
+            await editTodo({title: currentTask?.title, isdone: !currentTask?.isdone}, id)
+            onUpdate()
+        } catch (error) {
+            console.log("Ошибка при сохранении изменений:", error);
+        }
     };
 
     const handleDeleteTodo = async (id: number) => {
-        await deleteTodo(id)
-        onUpdate()
+        try {
+            await deleteTodo(id)
+            onUpdate()
+        } catch (error) {
+            console.log("Ошибка при удалении:", error);
+        }
     }
 
     return (
