@@ -1,3 +1,14 @@
+export enum PublicIPs {
+    AUTO = 'Автоматически',
+    LIST = 'Список',
+    NO_IP = 'Без адреса'
+}
+
+export enum PrivateIPs {
+    AUTO = 'Автоматически',
+    MANUAL = 'Вручную',
+}
+
 export enum OperatingSystems {
     UBUNTU = 'Ubuntu',
     CENTOS = 'CentOS',

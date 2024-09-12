@@ -3,7 +3,7 @@ import {Button, Checkbox, Col, Divider, Form, Input, InputNumber, Layout, Row, S
 import {
     HighCoreConfig,
     HighMemoryConfig,
-    OperatingSystems,
+    OperatingSystems, PrivateIPs, PublicIPs,
     ServerOptions,
     StandardConfig,
     StorageCapacityRange
@@ -13,6 +13,8 @@ const standardConfigurations = Object.values(StandardConfig);
 const highMemoryConfigurations = Object.values(HighMemoryConfig);
 const highCoreConfigurations = Object.values(HighCoreConfig);
 const operatingSystems = Object.values(OperatingSystems);
+const publicIPs = Object.values(PublicIPs);
+const privateIPs = Object.values(PrivateIPs);
 
 const dividerProps: {
     orientation: "left" | "right" | "center";
@@ -33,6 +35,7 @@ const options = (Object.keys(ServerOptions) as Array<keyof typeof ServerOptions>
 
 
 const {TabPane} = Tabs;
+const {TextArea} = Input;
 
 const CreateVirtualMachinePage = () => {
 
@@ -47,6 +50,8 @@ const CreateVirtualMachinePage = () => {
     const [machineName, setMachineName] = useState<string | null>(null);
     const [inputSSH, setInputSSH] = useState<string | null>(null);
     const [startAfterCreate, setStartAfterCreate] = useState<boolean>(false);
+    const [publicIP, setPublicIP] = useState<string>(publicIPs[0] || '');
+    const [privateIP, setPrivateIP] = useState<string>(privateIPs[0] || '');
 
     const handleSelectOS = (os: string) => {
         setSelectedOS(os);
@@ -85,6 +90,14 @@ const CreateVirtualMachinePage = () => {
         setStartAfterCreate(startAfterCreate);
     }
 
+    const handleChangePublicIP = (ip: string) => {
+        setPublicIP(ip);
+    }
+
+    const handleChangePrivateIP = (ip: string) => {
+        setPrivateIP(ip);
+    }
+
     return (
         <Layout style={{padding: "2rem"}}>
             <Form
@@ -94,7 +107,10 @@ const CreateVirtualMachinePage = () => {
                 layout="horizontal"
             >
 
-                <Form.Item>
+                <Form.Item
+                    label={"ОС:"}
+                    name={"operating_system"}
+                >
                     <Space.Compact size="middle">
                         {operatingSystems.map((os, index) => (
                             <Button
@@ -122,7 +138,7 @@ const CreateVirtualMachinePage = () => {
 
                 <Divider {...dividerProps}>Диски и файловые хранилища</Divider>
 
-                <Form.Item name={"add_drive"}>
+                <Form.Item name={"add_drive"} label={"Диски:"}>
                     <Button
                         onClick={handleAddDrive}
                         disabled={storageCapacities.length >= 3}
@@ -162,7 +178,10 @@ const CreateVirtualMachinePage = () => {
 
                 <Divider {...dividerProps}>Вычислительные ресурсы</Divider>
 
-                <Form.Item>
+                <Form.Item
+                    label={"Конфигурация:"}
+                    name={"config"}
+                >
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="Standard" key="1">
                             <Row gutter={[16, 16]}>
@@ -170,8 +189,7 @@ const CreateVirtualMachinePage = () => {
                                     <Col key={index} span={10}>
                                         <Button
                                             type={
-                                                selectedConfig === config ? 'primary' : 'default' ||
-                                                index === 1 ? 'primary' : 'default'
+                                                selectedConfig === config ? 'primary' : 'default'
                                             }
                                             onClick={() => handleSelectConfig(config)}
                                             block
@@ -215,6 +233,41 @@ const CreateVirtualMachinePage = () => {
                     </Tabs>
                 </Form.Item>
 
+                <Divider {...dividerProps}>Сетевые настройки</Divider>
+
+                <Form.Item
+                    label={"Публичный адрес:"}
+                    name={"public_ip"}
+                >
+                    <Space.Compact size="middle">
+                        {publicIPs.map((ip, index) => (
+                            <Button
+                                key={index}
+                                type={publicIP === ip ? 'primary' : 'default'}
+                                onClick={() => handleChangePublicIP(ip)}
+                            >
+                                {ip}
+                            </Button>
+                        ))}
+                    </Space.Compact>
+                </Form.Item>
+                <Form.Item
+                    label={"Внутренний адрес:"}
+                    name={"private_ip"}
+                >
+                    <Space.Compact size="middle">
+                        {privateIPs.map((ip, index) => (
+                            <Button
+                                key={index}
+                                type={privateIP === ip ? 'primary' : 'default'}
+                                onClick={() => handleChangePrivateIP(ip)}
+                            >
+                                {ip}
+                            </Button>
+                        ))}
+                    </Space.Compact>
+                </Form.Item>
+
                 <Divider {...dividerProps}>Доступ</Divider>
 
                 <Form.Item
@@ -227,8 +280,7 @@ const CreateVirtualMachinePage = () => {
                         }
                     ]}
                 >
-                    <Input
-                        type={"textarea"}
+                    <TextArea
                         placeholder="Открытый ключ. Должен начинаться с 'ssh-rsa', 'ssh-ed25519'"
                         onChange={(e) => handleChangeSSHKey(e.target.value)}
                     />
