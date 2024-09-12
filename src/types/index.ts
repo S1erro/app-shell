@@ -4,11 +4,6 @@ export enum PublicIPs {
     NO_IP = 'Без адреса'
 }
 
-export enum PrivateIPs {
-    AUTO = 'Автоматически',
-    MANUAL = 'Вручную',
-}
-
 export enum OperatingSystems {
     UBUNTU = 'Ubuntu',
     CENTOS = 'CentOS',
