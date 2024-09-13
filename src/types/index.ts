@@ -1,7 +1,28 @@
-export enum PublicIPs {
-    AUTO = 'Автоматически',
-    LIST = 'Список',
-    NO_IP = 'Без адреса'
+export const FormItemRules = [
+    {
+        required: true,
+        message: "Обязательное поле"
+    }
+];
+
+export const dividerProps: {
+    orientation: "left" | "right" | "center";
+    orientationMargin: string;
+} = {
+    orientation: "left",
+    orientationMargin: "0"
+}
+
+export interface CreateVMFormFields {
+    drivesCapacity: string[];
+    machineName: string;
+    operatingSystem: string;
+    privateIP: string;
+    publicIP: string;
+    serverLocation: string;
+    sshKey: string;
+    startAfterCreate?: boolean;
+    machineConfiguration: string;
 }
 
 export enum OperatingSystems {
@@ -52,7 +73,7 @@ export enum ServerOptions {
     'kz-west1-d'
 }
 
-export enum ContactsStatus {
+export enum FetchStatus {
     'rejected',
     'idle',
     'pending',
@@ -61,7 +82,11 @@ export enum ContactsStatus {
 
 export interface ContactsState {
     contacts: Contact[];
-    status: ContactsStatus;
+    status: FetchStatus;
+}
+
+export interface VirtualMachinesState {
+    // machines:
 }
 
 export interface Contact {

@@ -1,15 +1,12 @@
 import React, {useState} from 'react';
 import {Button, Layout} from "antd";
 import {useNavigate} from "react-router-dom";
-
-interface VirtualMachine {
-
-}
+import {CreateVMFormFields} from "types";
 
 const VirtualMachinesListPage = () => {
     const navigate = useNavigate();
 
-    const [virtualMachines, setVirtualMachines] = useState<VirtualMachine>([]);
+    const [virtualMachines, setVirtualMachines] = useState<CreateVMFormFields[]>([]);
 
     const handleCreateVirtualMachine = () => {
         navigate("/create-machine");

@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Contact, ContactsStatus} from "types";
+import {Contact, FetchStatus} from "types";
 import {initialState} from "./initialState";
-import {fetchContacts} from "./api";
+import {fetchContacts} from "../api";
 
 export const fetchedContacts = createAsyncThunk(
     'users/fetchById',
@@ -30,14 +30,14 @@ const contactsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchedContacts.pending, (state) => {
-                state.status = ContactsStatus.pending;
+                state.status = FetchStatus.pending;
             })
             .addCase(fetchedContacts.fulfilled, (state, action) => {
                 state.contacts = action.payload;
-                state.status = ContactsStatus.fulfilled;
+                state.status = FetchStatus.fulfilled;
             })
             .addCase(fetchedContacts.rejected, (state, action) => {
-                state.status = ContactsStatus.rejected;
+                state.status = FetchStatus.rejected;
             });
     }
 });

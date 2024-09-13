@@ -1,5 +1,5 @@
 import {Contact} from "types";
-import contactsData from "./contacts.json";
+import contactsData from "./Contacts/contacts.json";
 
 export const fetchContacts = async (): Promise<Contact[]> => {
     return new Promise((resolve) => {

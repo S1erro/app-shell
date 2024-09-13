@@ -2,9 +2,9 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Table, message} from "antd";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {useContactActions} from "store/contactActions";
-import {selectContacts} from "store/contactsSelectors";
-import {fetchedContacts} from "store/contactsSlice";
+import {useContactActions} from "store/Contacts/contactActions";
+import {selectContacts} from "store/Contacts/contactsSelectors";
+import {fetchedContacts} from "store/Contacts/contactsSlice";
 import {AppDispatch} from "store/store";
 import {getTableColumns} from "./const";
 
