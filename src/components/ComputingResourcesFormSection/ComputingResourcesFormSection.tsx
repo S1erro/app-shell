@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {Button, Col, Divider, Form, FormInstance, Row, Tabs} from "antd";
+import {Button, Col, Divider, Form, FormInstance, Layout, Row, Tabs} from "antd";
 import {CreateVMFormFields, dividerProps, FormItemRules, HighCoreConfig, HighMemoryConfig, StandardConfig} from "types";
 
 const standardConfigurations = Object.values(StandardConfig);
@@ -12,11 +12,16 @@ interface Props {
 
 const ComputingResourcesFormSection: FC<Props> = ({form}) => {
 
-    const [selectedConfig, setSelectedConfig] = useState<string>(form.getFieldValue('machineConfiguration'))
+    const [selectedConfig, setSelectedConfig] = useState<string>(form.getFieldValue('machineConfiguration') || '');
 
-    const handleSelectConfig = (config: string) => {
-        setSelectedConfig(config);
-        form.setFieldsValue({machineConfiguration: config});
+    const handleSelectConfig = (config?: string) => {
+        if (config) {
+            setSelectedConfig(config);
+            form.setFieldsValue({machineConfiguration: config});
+        } else {
+            setSelectedConfig('');
+            form.setFieldsValue({machineConfiguration: undefined});
+        }
     };
 
     const tabItems = [
@@ -84,8 +89,10 @@ const ComputingResourcesFormSection: FC<Props> = ({form}) => {
             <Divider {...dividerProps}>Вычислительные ресурсы</Divider>
 
             <Form.Item label="Конфигурация:" name={"machineConfiguration"} rules={FormItemRules}>
-                <Tabs items={tabItems}/>
+                <Layout>{selectedConfig}</Layout>
             </Form.Item>
+
+            <Tabs items={tabItems} onChange={() => handleSelectConfig()}/>
         </>
     );
 };

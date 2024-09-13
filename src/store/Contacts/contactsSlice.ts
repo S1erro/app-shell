@@ -36,7 +36,7 @@ const contactsSlice = createSlice({
                 state.contacts = action.payload;
                 state.status = FetchStatus.fulfilled;
             })
-            .addCase(fetchedContacts.rejected, (state, action) => {
+            .addCase(fetchedContacts.rejected, (state) => {
                 state.status = FetchStatus.rejected;
             });
     }
