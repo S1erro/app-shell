@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Form, Layout,} from "antd";
-import {CreateVMFormFields,} from "types";
+import {VirtualMachine} from "types";
 import OperatingSystemFormSection from "components/OperatingSystemFormSection/OperatingSystemFormSection";
 import ServerLocationFormSection from "components/ServerLocationFormSection/ServerLocationFormSection";
 import DrivesCapacityFormSection from "components/DrivesCapacityFormSection/DrivesCapacityFormSection";
@@ -11,10 +11,10 @@ import GenInfoFormSection from "components/GenInfoFormSection/GenInfoFormSection
 
 const CreateVirtualMachinePage = () => {
 
-    const [form] = Form.useForm<CreateVMFormFields>();
+    const [form] = Form.useForm<VirtualMachine>();
 
-    const handleSubmit = (values: CreateVMFormFields) => {
-        console.log("Form Values: ", values);
+    const handleSubmit = (values: VirtualMachine) => {
+            console.log("Form Values: ", values);
     };
 
     return (

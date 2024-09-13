@@ -1,13 +1,13 @@
 import React, {FC, useState} from 'react';
 import {Button, Col, Divider, Form, FormInstance, Layout, Row, Tabs} from "antd";
-import {CreateVMFormFields, dividerProps, FormItemRules, HighCoreConfig, HighMemoryConfig, StandardConfig} from "types";
+import {VirtualMachine, dividerProps, FormItemRules, HighCoreConfig, HighMemoryConfig, StandardConfig} from "types";
 
 const standardConfigurations = Object.values(StandardConfig);
 const highMemoryConfigurations = Object.values(HighMemoryConfig);
 const highCoreConfigurations = Object.values(HighCoreConfig);
 
 interface Props {
-    form: FormInstance<CreateVMFormFields>
+    form: FormInstance<VirtualMachine>
 }
 
 const ComputingResourcesFormSection: FC<Props> = ({form}) => {

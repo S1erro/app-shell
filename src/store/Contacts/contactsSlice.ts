@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Contact, FetchStatus} from "types";
-import {initialState} from "./initialState";
+import {initialContactsState} from "./initialState";
 import {fetchContacts} from "../api";
 
 export const fetchedContacts = createAsyncThunk(
@@ -12,7 +12,7 @@ export const fetchedContacts = createAsyncThunk(
 
 const contactsSlice = createSlice({
     name: 'contacts',
-    initialState,
+    initialState: initialContactsState,
     reducers: {
         addContact: (state, action: PayloadAction<Contact>) => {
             state.contacts.push(action.payload);

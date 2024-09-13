@@ -1,6 +1,6 @@
-import {ContactsState, FetchStatus} from "types";
+import {FetchStatus, VirtualMachinesState} from "types";
 
-export const initialState: ContactsState = {
-    contacts: [],
+export const initialVirtualMachinesState: VirtualMachinesState = {
+    virtualMachines: [],
     status: FetchStatus.pending,
 };

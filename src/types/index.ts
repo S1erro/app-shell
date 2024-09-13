@@ -13,18 +13,6 @@ export const dividerProps: {
     orientationMargin: "0"
 }
 
-export interface CreateVMFormFields {
-    drivesCapacity: string[];
-    machineName: string;
-    operatingSystem: string;
-    privateIP: string;
-    publicIP: string;
-    serverLocation: string;
-    sshKey: string;
-    startAfterCreate?: boolean;
-    machineConfiguration: string;
-}
-
 export enum OperatingSystems {
     UBUNTU = 'Ubuntu',
     CENTOS = 'CentOS',
@@ -80,13 +68,27 @@ export enum FetchStatus {
     'fulfilled',
 }
 
-export interface ContactsState {
-    contacts: Contact[];
-    status: FetchStatus;
+export interface VirtualMachine {
+    drivesCapacity: { capacity: number; }[];
+    machineName: string;
+    operatingSystem: string;
+    privateIP: string;
+    publicIP: string;
+    serverLocation: string;
+    sshKey: string;
+    startAfterCreate: boolean;
+    machineConfiguration: string;
+    id: number;
 }
 
 export interface VirtualMachinesState {
-    // machines:
+    virtualMachines: VirtualMachine[];
+    status: FetchStatus
+}
+
+export interface ContactsState {
+    contacts: Contact[];
+    status: FetchStatus;
 }
 
 export interface Contact {

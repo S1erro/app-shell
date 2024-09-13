@@ -1,6 +1,6 @@
 import {ContactsState, FetchStatus} from "types";
 
-export const initialState: ContactsState = {
+export const initialContactsState: ContactsState = {
     contacts: [],
     status: FetchStatus.pending,
 };
