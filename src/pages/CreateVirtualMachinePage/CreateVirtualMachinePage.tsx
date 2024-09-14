@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button, Form, Layout, Space,} from "antd";
 import {VirtualMachine} from "types";
 import OperatingSystemFormSection from "components/OperatingSystemFormSection/OperatingSystemFormSection";
@@ -57,7 +57,7 @@ const CreateVirtualMachinePage = () => {
                 <ServerLocationFormSection/>
                 <DrivesCapacityFormSection/>
                 <ComputingResourcesFormSection form={form}/>
-                <NetworkSettingsFormSection/>
+                <NetworkSettingsFormSection form={form}/>
                 <AccessToMachineFormSection/>
                 <GenInfoFormSection/>
 

@@ -1,11 +1,20 @@
-import React, {useState} from 'react';
-import {Divider, Form, Input, Radio} from "antd";
-import {dividerProps, FormItemRules} from "types";
+import React, {FC, useState} from 'react';
+import {Divider, Form, FormInstance, Input, Radio} from "antd";
+import {dividerProps, FormItemRules, VirtualMachine} from "types";
 
-const NetworkSettingsFormSection = () => {
+interface Props {
+    form: FormInstance<VirtualMachine>
+}
 
-    const [isManualPrivateIP, setIsManualPrivateIP] = useState(false);
-    const [isManualPublicIP, setIsManualPublicIP] = useState(false);
+const NetworkSettingsFormSection: FC<Props> = ({form}) => {
+    const isPrivateIP = form.getFieldValue('privateIP')
+    const isPublicIP = form.getFieldValue('publicIP')
+
+    const [isManualPrivateIP, setIsManualPrivateIP] = useState(!isNaN(parseFloat(isPrivateIP)));
+    const [isManualPublicIP, setIsManualPublicIP] = useState(!isNaN(parseFloat(isPublicIP)));
+
+    console.log("PRIVATE",isPrivateIP);
+    console.log("PUBLIC",isPublicIP);
 
     return (
         <>
@@ -47,7 +56,7 @@ const NetworkSettingsFormSection = () => {
                 </Radio.Group>
             </Form.Item>
 
-            {isManualPrivateIP && (
+            {(isManualPrivateIP)&& (
                 <Form.Item
                     name="privateIP"
                     label="Введите IP:"
