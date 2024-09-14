@@ -9,12 +9,12 @@
       }
     ],
     "machineName": "First Machine",
-    "operatingSystem": "CentOS",
+    "operatingSystem": "Ubuntu",
     "privateIP": "192.168.3.5",
     "publicIP": "auto",
     "serverLocation": "ru-central1-d",
     "sshKey": "ssh-rsaSAqwertrNGSDXJIVSUVFBISKJWAWD2",
-    "startAfterCreate": false,
+    "isActive": false,
     "machineConfiguration": "8 vCPU, 16 ГБ RAM",
     "id": 0.2
   },
@@ -30,13 +30,13 @@
         "capacity": 360
       }
     ],
-    "machineName": "Name",
+    "machineName": "Second Machine",
     "operatingSystem": "CentOS",
     "privateIP": "auto",
     "publicIP": "203.0.113.8",
     "serverLocation": "ru-central2-d",
     "sshKey": "ssh-rsaSASDdddddddUVFBISKJWAWD2",
-    "startAfterCreate": true,
+    "isActive": true,
     "machineConfiguration": "4 vCPU, 4 ГБ RAM",
     "id": 0.3
   },
@@ -46,13 +46,13 @@
         "capacity": 123
       }
     ],
-    "machineName": "Name",
-    "operatingSystem": "CentOS",
+    "machineName": "Dead Machine",
+    "operatingSystem": "Debian",
     "privateIP": "203.0.113.9",
     "publicIP": "172.16.0.1",
     "serverLocation": "kz-west1-d",
     "sshKey": "ssh-rsaSASDFGENGSD1111ISKJWAWD2",
-    "startAfterCreate": true,
+    "isActive": true,
     "machineConfiguration": "12 vCPU, 4 ГБ RAM",
     "id": 0.5
   },
@@ -65,13 +65,13 @@
         "capacity": 1222
       }
     ],
-    "machineName": "Name",
+    "machineName": "Redux Kills Machine",
     "operatingSystem": "CentOS",
     "privateIP": "auto",
     "publicIP": "auto",
     "serverLocation": "by-north1-d",
     "sshKey": "ssh-rsaSASDFGENGSDXJIVSUVFBISKJWAWD2",
-    "startAfterCreate": true,
+    "isActive": true,
     "machineConfiguration": "8 vCPU, 96 ГБ RAM",
     "id": 0.11
   }

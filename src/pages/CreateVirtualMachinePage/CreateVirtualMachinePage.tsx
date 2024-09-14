@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Form, Layout,} from "antd";
+import {Button, Form, Layout, Space,} from "antd";
 import {VirtualMachine} from "types";
 import OperatingSystemFormSection from "components/OperatingSystemFormSection/OperatingSystemFormSection";
 import ServerLocationFormSection from "components/ServerLocationFormSection/ServerLocationFormSection";
@@ -8,14 +8,40 @@ import ComputingResourcesFormSection from "components/ComputingResourcesFormSect
 import NetworkSettingsFormSection from "components/NetworkSettingsFormSection/NetworkSettingsFormSection";
 import AccessToMachineFormSection from "components/AccessToMachineFormSection/AccessToMachineFormSection";
 import GenInfoFormSection from "components/GenInfoFormSection/GenInfoFormSection";
+import {useNavigate, useParams} from "react-router-dom";
+import {useVirtualMachinesActions} from "store/VirtualMachines/virtualMachineActions";
+import {useSelector} from "react-redux";
+import {selectVirtualMachines} from "store/VirtualMachines/virtualMachinesSelectors";
 
 const CreateVirtualMachinePage = () => {
 
+    const virtualMachines = useSelector(selectVirtualMachines)
+
+    const navigate = useNavigate();
     const [form] = Form.useForm<VirtualMachine>();
+    const {handleAddVirtualMachine, handleEditVirtualMachine} = useVirtualMachinesActions();
+
+    const {id} = useParams<{ id: string }>();
 
     const handleSubmit = (values: VirtualMachine) => {
-            console.log("Form Values: ", values);
+        if (id) {
+            values.id = Number(id);
+            handleEditVirtualMachine(Number(id), values);
+        } else {
+            values.id = Math.random()
+            handleAddVirtualMachine(values);
+        }
+        navigate("/virtual-machines")
     };
+
+    const handleCancel = () => {
+        navigate("/virtual-machines")
+    }
+
+    if (id) {
+        const VM = virtualMachines.virtualMachines.find(machine => machine.id === Number(id));
+        form.setFieldsValue({...VM})
+    }
 
     return (
         <Layout style={{padding: "2rem"}}>
@@ -35,11 +61,19 @@ const CreateVirtualMachinePage = () => {
                 <AccessToMachineFormSection/>
                 <GenInfoFormSection/>
 
-                <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                        Создать
-                    </Button>
-                </Form.Item>
+                <Space>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit">
+                            {id ? "Изменить" : "Создать"}
+                        </Button>
+                    </Form.Item>
+
+                    <Form.Item>
+                        <Button onClick={handleCancel}>
+                            Отмена
+                        </Button>
+                    </Form.Item>
+                </Space>
             </Form>
         </Layout>
     );

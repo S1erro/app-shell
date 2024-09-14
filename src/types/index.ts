@@ -76,7 +76,7 @@ export interface VirtualMachine {
     publicIP: string;
     serverLocation: string;
     sshKey: string;
-    startAfterCreate: boolean;
+    isActive: boolean;
     machineConfiguration: string;
     id: number;
 }

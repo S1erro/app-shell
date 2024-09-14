@@ -20,7 +20,7 @@ const AppRouter = () => {
             <Route path="/contacts" element={<ContactsPage />} />
             <Route path="/create-edit/:id" element={<EditContactPage />} />
             <Route path="/virtual-machines" element={<VirtualMachinesListPage />} />
-            <Route path="/create-machine" element={<CreateVirtualMachinePage />} />
+            <Route path="/create-machine/:id" element={<CreateVirtualMachinePage />} />
         </Routes>
     );
 };

@@ -14,14 +14,14 @@ const virtualMachinesSlice = createSlice({
     name: "VirtualMachines",
     initialState: initialVirtualMachinesState,
     reducers: {
-        addContact: (state, action: PayloadAction<VirtualMachine>) => {
+        addVirtualMachine: (state, action: PayloadAction<VirtualMachine>) => {
             state.virtualMachines.push(action.payload);
         },
-        removeContact: (state, action: PayloadAction<number>) => {
-            state.virtualMachines = state.virtualMachines.filter(contact => contact.id !== action.payload);
+        removeVirtualMachine: (state, action: PayloadAction<number>) => {
+            state.virtualMachines = state.virtualMachines.filter(virtualMachine => virtualMachine.id !== action.payload);
         },
-        editContact: (state, action: PayloadAction<{ id: number, updatedVirtualMachine: VirtualMachine }>) => {
-            const index = state.virtualMachines.findIndex(contact => contact.id === action.payload.id);
+        editVirtualMachine: (state, action: PayloadAction<{ id: number, updatedVirtualMachine: VirtualMachine }>) => {
+            const index = state.virtualMachines.findIndex(virtualMachine => virtualMachine.id === action.payload.id);
             if (index !== -1) {
                 state.virtualMachines[index] = action.payload.updatedVirtualMachine;
             }
@@ -41,5 +41,7 @@ const virtualMachinesSlice = createSlice({
             });
     }
 })
+
+export const {addVirtualMachine, removeVirtualMachine, editVirtualMachine} = virtualMachinesSlice.actions;
 
 export default virtualMachinesSlice.reducer;
