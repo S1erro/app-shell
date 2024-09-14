@@ -13,7 +13,7 @@ const GenInfoFormSection = () => {
 
             <Form.Item
                 label="Запустить ВМ после создания:"
-                name="startAfterCreate"
+                name="isActive"
                 initialValue={false}
             >
                 <Switch/>

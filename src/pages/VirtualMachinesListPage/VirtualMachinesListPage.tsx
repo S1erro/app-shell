@@ -95,6 +95,18 @@ const VirtualMachinesListPage = () => {
                             {machine.drivesCapacity
                                 .map((drive, index) => (
                                     <span key={index}><b>Диск {index + 1}:</b> {drive.capacity} Гб&nbsp;</span>))}
+                            <Title
+                                level={5}
+                                style={{margin: 0, padding: 0}}
+                            >
+                                Внешний адрес: {machine.publicIP}
+                            </Title>
+                            <Title
+                                level={5}
+                                style={{margin: 0, padding: 0}}
+                            >
+                                Внутренний адрес: {machine.privateIP}
+                            </Title>
                         </Card>
                     </List.Item>
                 )}

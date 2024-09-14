@@ -11,7 +11,7 @@ const NetworkSettingsFormSection = () => {
         <>
             <Divider {...dividerProps}>Сетевые настройки</Divider>
 
-            <Form.Item label={"Публичный адрес:"} name={"public_ip"} initialValue={"auto"}>
+            <Form.Item label={"Публичный адрес:"} name={"publicIP"} initialValue={"auto"}>
                 <Radio.Group
                     onChange={(e) => setIsManualPublicIP(e.target.value === '')}
                 >
@@ -23,7 +23,7 @@ const NetworkSettingsFormSection = () => {
 
             {isManualPublicIP && (
                 <Form.Item
-                    name="public_ip"
+                    name="publicIP"
                     label="Введите IP:"
                     rules={[...FormItemRules,
                         {
@@ -38,7 +38,7 @@ const NetworkSettingsFormSection = () => {
                 </Form.Item>
             )}
 
-            <Form.Item label="Внутренний адрес:" name="private_ip" initialValue={"auto"}>
+            <Form.Item label="Внутренний адрес:" name="privateIP" initialValue={"auto"}>
                 <Radio.Group
                     onChange={(e) => setIsManualPrivateIP(e.target.value === '')}
                 >
@@ -49,7 +49,7 @@ const NetworkSettingsFormSection = () => {
 
             {isManualPrivateIP && (
                 <Form.Item
-                    name="private_ip"
+                    name="privateIP"
                     label="Введите IP:"
                     rules={[...FormItemRules,
                         {

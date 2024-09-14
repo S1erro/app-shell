@@ -24,7 +24,7 @@ const CreateVirtualMachinePage = () => {
     const {id} = useParams<{ id: string }>();
 
     const handleSubmit = (values: VirtualMachine) => {
-        if (id) {
+        if (Number(id)) {
             values.id = Number(id);
             handleEditVirtualMachine(Number(id), values);
         } else {
@@ -38,7 +38,7 @@ const CreateVirtualMachinePage = () => {
         navigate("/virtual-machines")
     }
 
-    if (id) {
+    if (Number(id)) {
         const VM = virtualMachines.virtualMachines.find(machine => machine.id === Number(id));
         form.setFieldsValue({...VM})
     }
@@ -64,7 +64,7 @@ const CreateVirtualMachinePage = () => {
                 <Space>
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
-                            {id ? "Изменить" : "Создать"}
+                            {Number(id) ? "Изменить" : "Создать"}
                         </Button>
                     </Form.Item>
 
