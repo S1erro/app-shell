@@ -49,18 +49,6 @@ export interface TasksProps {
     setTasks: React.Dispatch<React.SetStateAction<Todo[]>>
 }
 
-export enum StorageCapacityRange {
-    min = 2,
-    max = 192
-}
-
-export enum ServerOptions {
-    'ru-central1-d',
-    'ru-central2-d',
-    'by-north1-d',
-    'kz-west1-d'
-}
-
 export const dividerProps: {
     orientation: "left" | "right" | "center";
     orientationMargin: string;
