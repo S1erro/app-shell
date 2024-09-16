@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import contactsReducer from './contactsSlice';
+import contactsReducer from './Contacts/contactsSlice';
+import virtualMachinesReducer from './VirtualMachines/virtualMachinesSlice';
 
 const store = configureStore({
     reducer: {
         contacts: contactsReducer,
+        virtualMachines: virtualMachinesReducer,
     },
 });
 

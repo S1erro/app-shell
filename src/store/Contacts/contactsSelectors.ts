@@ -1,12 +1,12 @@
-import {RootState} from "./store";
+import {RootState} from "../store";
 import {createSelector} from "@reduxjs/toolkit";
-import {ContactsState, ContactsStatus} from "types";
+import {ContactsState, FetchStatus} from "types";
 
 const getAsyncStatusData = (data: ContactsState) => ({
-    hasError: data?.status === ContactsStatus.rejected,
-    isIdle: data?.status === ContactsStatus.idle,
-    isLoading: data?.status === ContactsStatus.pending,
-    isLoaded: data?.status === ContactsStatus.fulfilled,
+    hasError: data?.status === FetchStatus.rejected,
+    isIdle: data?.status === FetchStatus.idle,
+    isLoading: data?.status === FetchStatus.pending,
+    isLoaded: data?.status === FetchStatus.fulfilled,
 })
 
 const getAsyncActionData = (stateParam: ContactsState) => ({

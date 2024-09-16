@@ -4,8 +4,8 @@ import {Category, Contact, Gender} from "types";
 import {useParams, useNavigate} from "react-router-dom";
 import cls from "./EditContactPage.module.css"
 import {useSelector} from "react-redux";
-import {useContactActions} from "store/contactActions";
-import {selectContacts} from "store/contactsSelectors";
+import {useContactActions} from "store/Contacts/contactActions";
+import {selectContacts} from "store/Contacts/contactsSelectors";
 
 
 const categoryOptions = Object.values(Category).map(value => ({
