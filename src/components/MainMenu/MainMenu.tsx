@@ -24,6 +24,10 @@ const MainMenu = () => {
             key: 'virtual-machines',
             label: <Link to="/virtual-machines">Виртуальные машины</Link>,
         },
+        {
+            key: 'todo',
+            label: <Link to="/todo">Задачи</Link>,
+        },
     ];
 
     return (

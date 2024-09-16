@@ -8,6 +8,7 @@ import ContactsPage from "pages/ContactsPage/ContactsPage";
 import EditContactPage from "pages/EditContactPage/EditContactPage";
 import VirtualMachinesListPage from "pages/VirtualMachinesListPage/VirtualMachinesListPage";
 import CreateVirtualMachinePage from "pages/CreateVirtualMachinePage/CreateVirtualMachinePage";
+import AllTasksPage from "pages/AllTasksPage/AllTasksPage";
 
 const AppRouter = () => {
     return (
@@ -21,6 +22,7 @@ const AppRouter = () => {
             <Route path="/create-edit/:id" element={<EditContactPage />} />
             <Route path="/virtual-machines" element={<VirtualMachinesListPage />} />
             <Route path="/create-machine/:id" element={<CreateVirtualMachinePage />} />
+            <Route path="/todo" element={<AllTasksPage />} />
         </Routes>
     );
 };
