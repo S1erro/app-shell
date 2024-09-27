@@ -7,17 +7,10 @@ export const FormItemRules = [
     }
 ];
 
-export interface ApiResponse<T, N> {
-    status: string;
-    metaresponse: MetaResponse<T, N>;
-}
-
-export interface MetaResponse<T, N> {
-    data: T[]
-    info?: N
-    meta: {
-        totalAmount: number
-    }
+export interface ApiResponse {
+    data: Todo[];
+    info: TodoInfo;
+    meta: number;
 }
 
 export interface TodoRequest {
@@ -28,7 +21,7 @@ export interface TodoRequest {
 export interface Todo {
     id: number;
     title: string;
-    isdone: boolean;
+    isDone: boolean;
     created: string;
 }
 
