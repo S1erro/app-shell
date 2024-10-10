@@ -1,38 +1,24 @@
-import {ApiResponse, Todo, TodoInfo, TodoRequest} from "types";
+import {ApiResponse, Todo, TodoRequest} from "types";
+import axios from "axios";
 
-const domainUrl = 'http://51.250.113.72:8082/api/v1'
+const domainUrl = 'https://easydev.club/api/v1'
 
-export const fetchTodos = async (status?: 'all' | 'completed' | 'inwork'): Promise<ApiResponse<Todo, TodoInfo>> => {
-    const response = await fetch(`${domainUrl}/todos?filter=${status || 'all'}`);
-    return await response.json();
-};
+export const fetchTodos = async (status?: 'all' | 'completed' | 'inwork'): Promise<ApiResponse> => {
+    const response = await axios.get(`${domainUrl}/todos?filter=${status || 'all'}`);
+    return await response.data;
+}
 
 export const addTodo = async (todo: TodoRequest): Promise<Todo> => {
-    const response = await fetch(`${domainUrl}/todos`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(todo)
-    });
-    return await response.json();
+    const response = await axios.post(`${domainUrl}/todos`, todo)
+    return await response.data
 };
 
 export const deleteTodo = async (id: number): Promise<Todo> => {
-    const response = await fetch(`${domainUrl}/todos/${id}`, {
-        method: 'DELETE',
-    });
-    return await response.json();
+    const response = await axios.delete(`${domainUrl}/todos/${id}`)
+    return await response.data;
 };
 
 export const editTodo = async (todo: TodoRequest, id: number): Promise<Todo> => {
-    const response = await fetch(`${domainUrl}/todos/${id}`, {
-        method: "PUT",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(todo)
-    });
-    console.log(todo)
-    return await response.json();
+    const response = await axios.put(`${domainUrl}/todos/${id}`, todo);
+    return await response.data;
 }

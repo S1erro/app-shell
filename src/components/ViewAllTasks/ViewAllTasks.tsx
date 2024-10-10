@@ -26,8 +26,9 @@ export const ViewTasks = () => {
     const loadTodos = async () => {
         try {
             const result = await fetchTodos(filter);
-            setTasks(result.metaresponse.data);
-            setTodoCountByStatus(result.metaresponse.info ? result.metaresponse.info : todoCountByStatus)
+            setTasks(result.data);
+            setTodoCountByStatus(result.info ? result.info : todoCountByStatus)
+
         } catch (error) {
             console.log("Ошибка при получении данных:", error)
         }

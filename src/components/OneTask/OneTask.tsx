@@ -18,7 +18,7 @@ const OneTask: FC<Props> = ({task, tasks, onUpdate}) => {
     const handleCheckboxChange = async (id: number, tasks: Todo[]) => {
         try {
             const currentTask = tasks.find((task) => task.id === id);
-            await editTodo({title: currentTask?.title, isdone: !currentTask?.isdone}, id)
+            await editTodo({title: currentTask?.title, isdone: !currentTask?.isDone}, id)
             onUpdate()
         } catch (error) {
             console.log("Ошибка при сохранении изменений:", error);
@@ -40,7 +40,7 @@ const OneTask: FC<Props> = ({task, tasks, onUpdate}) => {
                 <Space>
                     <Checkbox
                         type="checkbox"
-                        checked={task.isdone}
+                        checked={task.isDone}
                         onChange={() => handleCheckboxChange(task.id, tasks)}
                     />
 
@@ -49,7 +49,7 @@ const OneTask: FC<Props> = ({task, tasks, onUpdate}) => {
                         style={{
                             margin: 0,
                             padding: 0,
-                            textDecoration: task.isdone ? 'line-through' : 'none'
+                            textDecoration: task.isDone ? 'line-through' : 'none'
                         }}
                     >
                         {task.title}
